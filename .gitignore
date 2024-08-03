@@ -1,0 +1,22 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+out/
+bin/
+obj/
+
+# Visual Studio Code
+.vscode/
+
+# Packages
+*.nupkg
+packages/
