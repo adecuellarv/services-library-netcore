@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApplicationApi.Application;
 using WebApplicationApi.Models;
+using static WebApplicationApi.Application.GetBooksFilter;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -25,9 +26,9 @@ namespace WebApplicationApi.Controllers
 
         // GET api/<BookController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<List<BookDto>>> GetByCat(string id)
         {
-            return "value";
+            return await _mediator.Send(new GetBooksFilter.BookByCat { CategoryId = id });
         }
 
         // POST api/<BookController>
