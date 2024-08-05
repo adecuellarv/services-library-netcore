@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using WebApplicationApi.Application;
+using WebApplicationApi.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,9 +20,9 @@ namespace WebApplicationApi.Controllers
 
         // GET: api/<CategoryController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<List<Category>>> GetCategories()
         {
-            return new string[] { "value1", "value2" };
+            return await _mediator.Send(new GetCategories.Categories());
         }
 
         // GET api/<CategoryController>/5
