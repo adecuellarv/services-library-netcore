@@ -8,9 +8,9 @@ namespace WebApplicationApi.Application
 {
     public class GetBooks
     {
-        public class Books : IRequest<List<Book>> { }
+        public class Books : IRequest<List<BookDto>> { }
 
-        public class Managment : IRequestHandler<Books, List<Book>>
+        public class Managment : IRequestHandler<Books, List<BookDto>>
         {
             private readonly NpgsqlConnection _connection;
             private readonly IMapper _mapper;
@@ -22,13 +22,13 @@ namespace WebApplicationApi.Application
                 _mapper = mapper;
             }
 
-            public async Task<List<Book>> Handle(Books request, CancellationToken cancellationToken)
+            public async Task<List<BookDto>> Handle(Books request, CancellationToken cancellationToken)
             {
                 if (_connection.State != ConnectionState.Open)
                 {
                     await _connection.OpenAsync(cancellationToken);
                 }
-                var bookList = new List<Book>();
+                var bookList = new List<BookDto>();
                 try
                 {
                     using (var command = new NpgsqlCommand("SELECT * FROM public.books;", _connection))
@@ -38,7 +38,7 @@ namespace WebApplicationApi.Application
                             while (await reader.ReadAsync(cancellationToken))
                             {
 
-                                var category = new Book
+                                var book = new BookDto
                                 {
                                     BookId = reader.GetInt32(0),
                                     BookName = reader.GetString(1),
@@ -47,7 +47,7 @@ namespace WebApplicationApi.Application
                                     BookPdf = reader.GetString(4),
                                     Category = reader.GetInt32(5)
                                 };
-                                bookList.Add(category);
+                                bookList.Add(book);
                             }
                         }
                     }

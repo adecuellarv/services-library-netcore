@@ -18,7 +18,7 @@ namespace WebApplicationApi.Controllers
         }
         // GET: api/<BookController>
         [HttpGet]
-        public async Task<ActionResult<List<Book>>> GetBooks()
+        public async Task<ActionResult<List<BookDto>>> GetBooks()
         {
             return await _mediator.Send(new GetBooks.Books());
         }
