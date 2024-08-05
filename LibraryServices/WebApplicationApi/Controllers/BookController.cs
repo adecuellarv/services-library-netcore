@@ -93,8 +93,9 @@ namespace WebApplicationApi.Controllers
 
         // DELETE api/<BookController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<Unit>> Delete(string id)
         {
+            return await _mediator.Send(new DeleteBook.BookDeleteID { BookID = id });
         }
     }
 }
