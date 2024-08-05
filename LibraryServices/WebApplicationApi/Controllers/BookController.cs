@@ -39,9 +39,10 @@ namespace WebApplicationApi.Controllers
                 return BadRequest("Los archivos no pueden ser nulos.");
 
             // path
-            var directoryPath = @"C:\Users\Usuario\Documents\projects\files-exam";
-            var bookImagePath = Path.Combine(directoryPath, data.BookImageFile.FileName);
-            var bookPdfPath = Path.Combine(directoryPath, data.BookPdfFile.FileName);
+            //var directoryPath = @"C:\Users\Usuario\Documents\projects\files-exam";
+            //var directoryPath = Path.Combine("wwwroot", "uploads", )
+            var bookImagePath = Path.Combine("wwwroot", "uploads", data.BookImageFile.FileName);
+            var bookPdfPath = Path.Combine("wwwroot", "uploads", data.BookPdfFile.FileName);
 
             //upload
             using (var stream = new FileStream(bookImagePath, FileMode.Create))
@@ -55,8 +56,8 @@ namespace WebApplicationApi.Controllers
             }
 
             // path to bd
-            data.BookImage = bookImagePath;
-            data.BookPdf = bookPdfPath;
+            data.BookImage = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookImageFile.FileName}"; // bookImagePath;
+            data.BookPdf = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookImageFile.FileName}"; //bookPdfPath;
 
             return await _mediator.Send(data);
         }
@@ -69,9 +70,8 @@ namespace WebApplicationApi.Controllers
                 return BadRequest("Los archivos no pueden ser nulos.");
 
             // path
-            var directoryPath = @"C:\Users\Usuario\Documents\projects\files-exam";
-            var bookImagePath = Path.Combine(directoryPath, data.BookImageFile.FileName);
-            var bookPdfPath = Path.Combine(directoryPath, data.BookPdfFile.FileName);
+            var bookImagePath = Path.Combine("wwwroot", "uploads", data.BookImageFile.FileName);
+            var bookPdfPath = Path.Combine("wwwroot", "uploads", data.BookPdfFile.FileName);
 
             //upload
             using (var stream = new FileStream(bookImagePath, FileMode.Create))
@@ -85,8 +85,8 @@ namespace WebApplicationApi.Controllers
             }
 
             // path to bd
-            data.BookImage = bookImagePath;
-            data.BookPdf = bookPdfPath;
+            data.BookImage = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookImageFile.FileName}"; // bookImagePath;
+            data.BookPdf = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookImageFile.FileName}"; //bookPdfPath;
             data.BookId = int.Parse(id);
 
             return await _mediator.Send(data);

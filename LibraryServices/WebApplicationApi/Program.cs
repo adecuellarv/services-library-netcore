@@ -35,9 +35,27 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers(); // O cualquier otro servicio que necesites
 
+// Agrega servicios al contenedor
+builder.Services.AddControllersWithViews();
+
 //builder.Services.AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<AddNewCategory>());
 
 var app = builder.Build();
+
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+else
+{
+    app.UseExceptionHandler("/Home/Error");
+    app.UseHsts();
+}
+
+app.UseHttpsRedirection();
+app.UseStaticFiles();
+
+app.UseRouting();
 
 // Configure the HTTP request pipeline.
 app.UseCors("AllowAllOrigins");
@@ -45,5 +63,9 @@ app.UseCors("AllowAllOrigins");
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

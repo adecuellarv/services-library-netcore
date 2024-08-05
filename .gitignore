@@ -20,3 +20,6 @@ obj/
 # Packages
 *.nupkg
 packages/
+
+#files
+/WebApplicationApi/wwwroot/uploads/*
