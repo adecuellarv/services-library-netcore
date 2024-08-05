@@ -13,6 +13,12 @@ builder.Services.AddControllers();
 builder.Services.AddSingleton<NpgsqlConnection>(sp => new NpgsqlConnection(builder.Configuration.GetConnectionString("ConexionDB")));
 //add mediador
 builder.Services.AddMediatR(typeof(AddNewCategory.Managment).Assembly);
+// config servicios
+builder.Services.AddLogging(loggingBuilder =>
+{
+    loggingBuilder.AddConsole();
+    loggingBuilder.AddDebug();
+});
 
 //builder.Services.AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<AddNewCategory>());
 
