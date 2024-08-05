@@ -22,11 +22,25 @@ builder.Services.AddLogging(loggingBuilder =>
 //add map
 builder.Services.AddAutoMapper(typeof(GetCategories.Managment));
 
+// Configuración de servicios
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins", builder =>
+    {
+        builder.AllowAnyOrigin() // Permitir cualquier origen
+               .AllowAnyMethod() // Permitir cualquier método (GET, POST, etc.)
+               .AllowAnyHeader(); // Permitir cualquier encabezado
+    });
+});
+
+builder.Services.AddControllers(); // O cualquier otro servicio que necesites
+
 //builder.Services.AddFluentValidation(cfg => cfg.RegisterValidatorsFromAssemblyContaining<AddNewCategory>());
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+app.UseCors("AllowAllOrigins");
 
 app.UseAuthorization();
 
