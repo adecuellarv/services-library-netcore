@@ -57,7 +57,7 @@ namespace WebApplicationApi.Controllers
 
             // path to bd
             data.BookImage = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookImageFile.FileName}"; // bookImagePath;
-            data.BookPdf = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookImageFile.FileName}"; //bookPdfPath;
+            data.BookPdf = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookPdfFile.FileName}"; //bookPdfPath;
 
             return await _mediator.Send(data);
         }
@@ -86,7 +86,7 @@ namespace WebApplicationApi.Controllers
 
             // path to bd
             data.BookImage = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookImageFile.FileName}"; // bookImagePath;
-            data.BookPdf = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookImageFile.FileName}"; //bookPdfPath;
+            data.BookPdf = $"{Request.Scheme}://{Request.Host}/uploads/{data.BookPdfFile.FileName}"; //bookPdfPath;
             data.BookId = int.Parse(id);
 
             return await _mediator.Send(data);

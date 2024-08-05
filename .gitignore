@@ -22,4 +22,4 @@ obj/
 packages/
 
 #files
-/WebApplicationApi/wwwroot/uploads/*
+**/WebApplicationApi/wwwroot/uploads
