@@ -6,8 +6,8 @@
         public string BookGuid { get; set; }
         public string BookName { get; set; }
         public string BookDescription { get; set; }
-        public string BookImage {get; set; }
-        public string BookPdf { get; set; }
+        public IFormFile BookImage {get; set; }
+        public IFormFile BookPdf { get; set; }
         public Category Category { get; set; }
     }
 }
