@@ -33,7 +33,7 @@ namespace WebApplicationApi.Controllers
 
         // POST api/<CategoryController>
         [HttpPost]
-        public async Task<ActionResult<Unit>> Crear(AddNewCategory.ExecuteCategory data)
+        public async Task<ActionResult<Unit>> Create(AddNewCategory.ExecuteCategory data)
         {
             return await _mediator.Send(data);
         }
@@ -46,9 +46,11 @@ namespace WebApplicationApi.Controllers
 
         // DELETE api/<CategoryController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<ActionResult<Unit>> Delete(string id)
         {
+            return await _mediator.Send(new  DeleteCategory.CategoryDeleteID { CategoryID = id });
         }
+
     }
 }
 

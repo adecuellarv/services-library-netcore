@@ -2,27 +2,25 @@
 using MediatR;
 using Npgsql;
 using System.Data;
-using System.Xml.Linq;
-using WebApplicationApi.Models;
 
 namespace WebApplicationApi.Application
 {
-    public class AddNewCategory
+    public class DeleteCategory
     {
-        public class ExecuteCategory : IRequest
+        public class CategoryDeleteID : IRequest
         {
-            public string CategoryName { get; set; }
+            public string CategoryID { get; set; }
         }
 
-        public class ExecuteValidations : AbstractValidator<ExecuteCategory>
+        public class ExecuteValidations : AbstractValidator<CategoryDeleteID>
         {
-            public ExecuteValidations() 
-            { 
-                RuleFor(x=> x.CategoryName).NotEmpty();
+            public ExecuteValidations()
+            {
+                RuleFor(x => x.CategoryID).NotEmpty();
             }
         }
 
-        public class Managment : IRequestHandler<ExecuteCategory, Unit>
+        public class Managment : IRequestHandler<CategoryDeleteID, Unit> 
         {
             private readonly NpgsqlConnection _connection;
 
@@ -31,17 +29,17 @@ namespace WebApplicationApi.Application
                 _connection = connection;
             }
 
-            public async Task<Unit> Handle(ExecuteCategory request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(CategoryDeleteID request, CancellationToken cancellationToken)
             {
                 if (_connection.State != ConnectionState.Open)
                 {
                     await _connection.OpenAsync(cancellationToken);
                 }
 
-                using (var command = new NpgsqlCommand("SELECT public.addcategory(@p_categoryname)", _connection))
+                using (var command = new NpgsqlCommand("SELECT public.deletecategory(@p_categoryid)", _connection))
                 {
                     //command.CommandType = System.Data.CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("p_categoryname", request.CategoryName);
+                    command.Parameters.AddWithValue("p_categoryid", int.Parse(request.CategoryID));
                     await command.ExecuteNonQueryAsync(cancellationToken);
                 }
 
